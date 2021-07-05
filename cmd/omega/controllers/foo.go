@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	HealthController = web.Controller{
-		Name: "HealthController",
+	FooController = web.Controller{
+		Name: "FooController",
 		Routes: []web.Route{
 			{
-				Path:      "/api/v1/health",
+				Path:      "/api/v1/foo",
 				Methods:   []string{"GET", "OPTIONS"},
-				RouteFunc: GetHealth,
+				RouteFunc: GetFoo,
 			},
 		},
 		Middleware: []web.Middleware{
@@ -24,7 +24,7 @@ var (
 	}
 )
 
-// GetHealth The health route handler
-func GetHealth(r *http.Request) (interface{}, error) {
+// GetFoo The health route handler
+func GetFoo(r *http.Request) (interface{}, error) {
 	return map[string]bool{"ok": true}, nil
 }

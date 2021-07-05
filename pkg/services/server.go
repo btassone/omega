@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"github.com/btassone/crypto/omega/pkg/controllers"
 	"github.com/btassone/crypto/omega/pkg/web"
 	"github.com/gorilla/mux"
@@ -14,9 +15,6 @@ var (
 		Address:      "omega.local:8000",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
-		Controllers: []web.Controller{
-			controllers.HealthController,
-		},
 	}
 )
 
@@ -31,8 +29,17 @@ type Server struct {
 	Instance     *http.Server
 }
 
+func (s *Server) AddController(controller web.Controller) {
+	s.Controllers = append(s.Controllers, controller)
+
+	fmt.Printf("Added new controller: %s\n", controller.Name)
+}
+
 // Start Starts the controllers server
 func (s *Server) Start() {
+	// Add the default routes
+	s.AddController(controllers.HealthController)
+
 	// Set the router
 	s.SetRouter()
 

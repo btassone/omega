@@ -7,6 +7,7 @@ import (
 
 // Controller The controller struct
 type Controller struct {
+	Name       string
 	Routes     []Route
 	Middleware []Middleware
 }
